@@ -6,6 +6,7 @@ import com.hhk.expensetreackerapi.entity.CategoryEntity;
 import com.hhk.expensetreackerapi.entity.User;
 import com.hhk.expensetreackerapi.exceptions.ItemExistsException;
 import com.hhk.expensetreackerapi.exceptions.ResourceNotFoundException;
+import com.hhk.expensetreackerapi.mappers.CategoryMapper;
 import com.hhk.expensetreackerapi.repository.CategoryRepository;
 import com.hhk.expensetreackerapi.service.ICategoryService;
 import com.hhk.expensetreackerapi.service.IUserService;
@@ -29,6 +30,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     private final IUserService userService;
 
+    private final CategoryMapper categoryMapper;
+
     /***
      * This is for reading the categories from database
      * @return list of categories
@@ -36,7 +39,7 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public List<CategoryDTO> getAllCategories() {
         List<CategoryEntity> list = categoryRepository.findByUserId(userService.getLoggedInUser().getId());
-        return list.stream().map(categoryEntity -> mapToDTO(categoryEntity)).collect(Collectors.toList());
+        return list.stream().map(categoryEntity -> categoryMapper.mapToCategoryDTO(categoryEntity)).collect(Collectors.toList());
 
     }
 
@@ -51,9 +54,11 @@ public class CategoryServiceImpl implements ICategoryService {
         if (isCategoryPresent) {
             throw new ItemExistsException("Category already exists for the name " + categoryDTO.getName());
         }
-        CategoryEntity newCategory = mapToEntity(categoryDTO);
+        CategoryEntity newCategory = categoryMapper.mapToCategoryEntity(categoryDTO);
+        newCategory.setCategoryId(UUID.randomUUID().toString());
+        newCategory.setUser(userService.getLoggedInUser());
         newCategory = categoryRepository.save(newCategory);
-        return mapToDTO(newCategory);
+        return categoryMapper.mapToCategoryDTO(newCategory);
     }
 
     /***
@@ -74,32 +79,32 @@ public class CategoryServiceImpl implements ICategoryService {
      * @param categoryDTO
      * @return CategoryEntity
      */
-    private CategoryEntity mapToEntity(CategoryDTO categoryDTO) {
-        return CategoryEntity.builder()
-                .name(categoryDTO.getName())
-                .description(categoryDTO.getDescription())
-                .categoryIcon(categoryDTO.getCategoryIcon())
-                .categoryId(UUID.randomUUID().toString())
-                .user(userService.getLoggedInUser())
-                .build();
-    }
+//    private CategoryEntity mapToEntity(CategoryDTO categoryDTO) {
+//        return CategoryEntity.builder()
+//                .name(categoryDTO.getName())
+//                .description(categoryDTO.getDescription())
+//                .categoryIcon(categoryDTO.getCategoryIcon())
+//                .categoryId(UUID.randomUUID().toString())
+//                .user(userService.getLoggedInUser())
+//                .build();
+//    }
 
     /***
      * Mapper method for converting a CategoryEntity object to CategoryDTO object
      * @param categoryEntity
      * @return CategoryDTO
      */
-    private CategoryDTO mapToDTO(CategoryEntity categoryEntity) {
-        return CategoryDTO.builder()
-                .name(categoryEntity.getName())
-                .categoryId(categoryEntity.getCategoryId())
-                .description(categoryEntity.getDescription())
-                .categoryIcon(categoryEntity.getCategoryIcon())
-                .createdAt(categoryEntity.getCreatedAt())
-                .updatedAt(categoryEntity.getUpdatedAt())
-                .user(mapToUserDTO(categoryEntity.getUser()))
-                .build();
-    }
+//    private CategoryDTO mapToDTO(CategoryEntity categoryEntity) {
+//        return CategoryDTO.builder()
+//                .name(categoryEntity.getName())
+//                .categoryId(categoryEntity.getCategoryId())
+//                .description(categoryEntity.getDescription())
+//                .categoryIcon(categoryEntity.getCategoryIcon())
+//                .createdAt(categoryEntity.getCreatedAt())
+//                .updatedAt(categoryEntity.getUpdatedAt())
+//                .user(mapToUserDTO(categoryEntity.getUser()))
+//                .build();
+//    }
 
     /***
      * Mapper method for converting a User object to UserDTO object

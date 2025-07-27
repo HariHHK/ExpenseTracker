@@ -3,6 +3,7 @@ package com.hhk.expensetreackerapi.controller;
 import com.hhk.expensetreackerapi.dto.CategoryDTO;
 import com.hhk.expensetreackerapi.io.CategoryRequest;
 import com.hhk.expensetreackerapi.io.CategoryResponse;
+import com.hhk.expensetreackerapi.mappers.CategoryMapper;
 import com.hhk.expensetreackerapi.service.impl.CategoryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class CategoryController {
 
     private final CategoryServiceImpl categoryService;
 
+    private final CategoryMapper categoryMapper;
+
     /*
      * API for creating a category
      * @Param categoryRequest
@@ -30,9 +33,9 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public CategoryResponse createCategory(@RequestBody CategoryRequest categoryRequest) {
-        CategoryDTO categoryDTO = mapToDTO(categoryRequest);
+        CategoryDTO categoryDTO = categoryMapper.mapToCategoryDTO(categoryRequest);
         categoryDTO = categoryService.saveCategory(categoryDTO);
-        return mapToResponse(categoryDTO);
+        return categoryMapper.mapToCategoryResponse(categoryDTO);
     }
 
     /*
@@ -42,7 +45,7 @@ public class CategoryController {
     @GetMapping
     public List<CategoryResponse> readCategories() {
         List<CategoryDTO> listOfCategories = categoryService.getAllCategories();
-        return listOfCategories.stream().map(category -> mapToResponse(category)).collect(Collectors.toList());
+        return listOfCategories.stream().map(category -> categoryMapper.mapToCategoryResponse(category)).collect(Collectors.toList());
     }
 
     /*
@@ -55,22 +58,24 @@ public class CategoryController {
         categoryService.deleteCategory(categoryId);
     }
 
+
+
     /*
      * Mapper method for converting a CategoryDTO object to CategoryResponse object
      * @Param categoryDTO
      * @Return CategoryResponse
      *
      */
-    private CategoryResponse mapToResponse(CategoryDTO categoryDTO) {
-        return CategoryResponse.builder()
-                .categoryId(categoryDTO.getCategoryId())
-                .name(categoryDTO.getName())
-                .description(categoryDTO.getDescription())
-                .categoryIcon(categoryDTO.getCategoryIcon())
-                .createdAt(categoryDTO.getCreatedAt())
-                .updatedAt(categoryDTO.getUpdatedAt())
-                .build();
-    }
+//    private CategoryResponse mapToResponse(CategoryDTO categoryDTO) {
+//        return CategoryResponse.builder()
+//                .categoryId(categoryDTO.getCategoryId())
+//                .name(categoryDTO.getName())
+//                .description(categoryDTO.getDescription())
+//                .categoryIcon(categoryDTO.getCategoryIcon())
+//                .createdAt(categoryDTO.getCreatedAt())
+//                .updatedAt(categoryDTO.getUpdatedAt())
+//                .build();
+//    }
 
     /*
      * Mapper method for converting a CategoryRequest object to CategoryDTO object
@@ -78,13 +83,13 @@ public class CategoryController {
      * @Return CategoryDTO
      *
      */
-    private CategoryDTO mapToDTO(CategoryRequest categoryRequest) {
-        return CategoryDTO.builder()
-                .name(categoryRequest.getName())
-                .description(categoryRequest.getDescription())
-                .categoryIcon(categoryRequest.getIcon())
-                .build();
-    }
+//    private CategoryDTO mapToDTO(CategoryRequest categoryRequest) {
+//        return CategoryDTO.builder()
+//                .name(categoryRequest.getName())
+//                .description(categoryRequest.getDescription())
+//                .categoryIcon(categoryRequest.getIcon())
+//                .build();
+//    }
 
 
 }
