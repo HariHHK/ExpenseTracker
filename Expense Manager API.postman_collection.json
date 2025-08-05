@@ -1,0 +1,539 @@
+{
+	"info": {
+		"_postman_id": "eefc2a5d-d56f-4226-84d8-04c12b4659ec",
+		"name": "Expense Manager API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28284985"
+	},
+	"item": [
+		{
+			"name": "Read All Expenses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/expenses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read All Categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Expense By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/expenses/c0b3d788-ed30-4f93-bb48-d092d9cc778e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"c0b3d788-ed30-4f93-bb48-d092d9cc778e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Expense",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"bike\",\r\n    \"amount\": 600.00,\r\n    \"categoryId\": \"a4c773c4-b3fe-482d-b625-4bc4c6259b15\",\r\n    \"description\": \"bill\",\r\n    \"date\": \"2025-11-12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/expenses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bills\",\r\n    \"description\": \"Account Details\",\r\n    \"icon\": \"icon5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Expense",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/expenses?expenseId=c0b3d788-ed30-4f93-bb48-d092d9cc778e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "expenseId",
+							"value": "c0b3d788-ed30-4f93-bb48-d092d9cc778e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/categories/2eff6294-0b12-4162-b8fb-c9d35bff63bd",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories",
+						"2eff6294-0b12-4162-b8fb-c9d35bff63bd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Expense",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": \"1000\",\r\n    \"categoryId\": \"d60b338f-5ff5-4796-94dc-04a0ed9d6f09\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/expenses/05534f65-8aa9-4b84-bc4f-c635fa5ed33e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"05534f65-8aa9-4b84-bc4f-c635fa5ed33e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All By Pagination and Sorting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses?page=0&size=2&sort=name,desc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "name,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Expenses By Keyword",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/expenses/name?keyword=water",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"name"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "water"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Expenses By Date",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/expenses/date?startDate=2025-10-01&endDate=2025-10-30",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-10-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-10-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Expenses By Category",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/expenses/category?category=Utilities",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"category"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Utilities"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"krish\",\r\n    \"email\":\"krish2@gmail.com\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"harihhk\",\r\n    \"email\": \"hari12@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/deactivate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"deactivate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"vijay\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {\r",
+							"    const authToken = pm.response.json().jwtToken;\r",
+							"    pm.environment.set('authToken', authToken);\r",
+							"    console.log(\"JWT token saved to environment:\", authToken);\r",
+							"} else {\r",
+							"    console.warn(\"Login failed. Token not set.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"krish2@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
